@@ -4,19 +4,14 @@ using Grpc.Net.Client;
 using NyaapiService;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Text;
 
 namespace Amadeus.Nyaapi.gRPC
 {
     public class Nyaapi
     {
-        private string hostAddress;
+        private readonly string hostAddress;
 
-        public Nyaapi(string hostAddress)
-        {
-            this.hostAddress = hostAddress;
-        }
+        public Nyaapi(string hostAddress) => this.hostAddress = hostAddress;
 
         private GetLatestEpisodesRequest.Types.Feed ConvertFeed(Feed inputFeed)
         {
@@ -44,7 +39,7 @@ namespace Amadeus.Nyaapi.gRPC
             var requestFeed = ConvertFeed(feed);
             var requestQuality = ConvertQuality(quality);
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-            using var channel = GrpcChannel.ForAddress("http://172.26.179.58:50051");
+            using var channel = GrpcChannel.ForAddress(hostAddress);
             var client = new NyaapiService.Nyaapi.NyaapiClient(channel);
             var request = new GetLatestEpisodesRequest
             {

@@ -17,7 +17,7 @@ namespace Amadeus.Nyaapi.gRPC.Models
         public string Magnet { get; set; }
         public string Torrent { get; set; }
         // public string FormattedDescription { get { return Windows.Data.Html.HtmlUtilities.ConvertToText(description); } }
-        public string FormattedTitle { get { return Regex.Replace(Name, @"\[.*?\]|(\.[a-z]{3})", ""); } }
+        public string FormattedTitle { get => Regex.Replace(Name, @"\[.*?\]|(\.[a-z]{3})", ""); }
 
         public string Team
         {
@@ -30,12 +30,6 @@ namespace Amadeus.Nyaapi.gRPC.Models
             }
         }
 
-        public override string ToString()
-        {
-            StringBuilder builder = new StringBuilder(Name);
-            builder.Append("\nId: " + Id);
-
-            return builder.ToString();
-        }
+        public override string ToString() => Name + "\nId: " + Id;
     }
 }
